@@ -1,0 +1,40 @@
+{
+  "name": "mcdes",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Julian <julian.tapales@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "client",
+    "services",
+    "shared"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "start": "sst start --outputs-file outputs.json",
+    "prepare": "yarn workspace shared run tsc",
+    "build": "yarn prepare && sst build",
+    "deploy": "yarn prepare && sst deploy",
+    "destroy": "sst remove",
+    "console": "sst console",
+    "typecheck": "tsc --noEmit",
+    "test": "sst load-config -- vitest run",
+    "docker:build": "docker build --tag aws-cdk-batch-typescript .",
+    "docker:run": "docker run aws-cdk-batch-typescript",
+    "script": "node --loader @esbuild-kit/esm-loader ./services/run.ts"
+  },
+  "devDependencies": {
+    "@esbuild-kit/esm-loader": "^2.4.2",
+    "@serverless-stack/cli": "^1.10.6",
+    "@serverless-stack/resources": "^1.10.6",
+    "@tsconfig/node16": "^1.0.3",
+    "@types/aws-lambda": "^8.10.102",
+    "aws-cdk-lib": "2.32.0",
+    "esbuild": "^0.15.7",
+    "typescript": "^4.8.2",
+    "vitest": "^0.23.1"
+  },
+  "packageManager": "yarn@3.2.3"
+}

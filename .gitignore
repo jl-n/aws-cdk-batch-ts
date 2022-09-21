@@ -1,0 +1,27 @@
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+node_modules
+
+# typescript
+tsconfig.tsbuildinfo
+
+# dependencies
+node_modules
+
+# sst
+.sst
+.build
+
+# misc
+.DS_Store
+
+# local env files
+.env*.local
+.env
+
+**/dist

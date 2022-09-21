@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["functions", "lib"],
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2017",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["ES2021"],
+    "baseUrl": "."
+  },
+  "references": [{ "path": "../shared" }]
+}

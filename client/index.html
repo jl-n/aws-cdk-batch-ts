@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" class="p-0 m-0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aws-cdk-batch-typescript</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="p-0 m-0">
+    <div class="flex flex-row w-screen h-screen">
+      <!-- Custom UI -->
+      <form
+        id="form"
+        class="p-4 shrink-0 w-96 flex-col space-y-4 flex"
+        action=""
+      >
+        <div>
+          <p>Name</p>
+          <input
+            name="name"
+            class="border p-2 w-full"
+            placeholder="Type a name to identify this job..."
+            type="text"
+          />
+        </div>
+
+        <div>
+          <p>Sample Content</p>
+          <input
+            name="sample_content"
+            class="border p-2 w-full"
+            placeholder="Type a string..."
+            type="text"
+          />
+        </div>
+
+        <div>
+          <p>Token</p>
+          <input
+            name="token"
+            class="border p-2 w-full"
+            placeholder="Type in your token..."
+            type="password"
+          />
+        </div>
+        <button type="submit" class="bg-gray-300 hover:bg-gray-200 p-2">
+          Submit
+        </button>
+      </form>
+
+      <!-- AIRTABLE -->
+      <div
+        class="grow h-full bg-gray-200 flex justify-center items-center relative"
+      >
+        <div class="opacity-50 p-12 leading-relaxed">
+          Embed your Airtable Base by uncommenting the iframe in
+          <code
+            class="p-1 text-sm rounded-md bg-gray-300 border-gray-400 border"
+            >client/index.html</code
+          >
+          and updating the
+          <code
+            class="p-1 text-sm rounded-md bg-gray-300 border-gray-400 border"
+            >src</code
+          >
+          property.
+        </div>
+        <!-- <iframe
+          id="airtable-embed"
+          src="https://airtable.com/embed/shrMSe05O53YIASpv?backgroundColor=gray&viewControls=on"
+          frameborder="0"
+          onmousewheel=""
+          class="w-full h-full"
+          style="background: transparent; border: 1px solid #ccc"
+        ></iframe> -->
+
+        <!-- Refresh button to reload the iframe. Airtable doesn't automatically update in an iframe. -->
+        <!-- <button
+          id="refresh-button"
+          class="absolute shadow bottom-0 left-0 p-2 ml-2 mb-16 bg-white drop-shadow"
+        >
+          Refresh
+        </button> -->
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script type="module" src="/src/entry.ts"></script>
+  </body>
+</html>
