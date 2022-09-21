@@ -1,13 +1,5 @@
 # aws-cdk-batch-typescript
 
-**todo**
-
-- remove this todo list
-- remove unused dependencies
-- verify deploy works
-- connect up UI
-- regenerate lockfile
-
 Quickly deploy a barebones Typescript client app with a Lambda backend and S3 Bucket that can run jobs in a Docker container on [AWS Batch](https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html) with Fargate.
 
 **Why?**
