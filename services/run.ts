@@ -25,5 +25,5 @@ console.log('Uploading file: ', name)
 const s3_url = await upload(`${name}.txt`, result)
 console.log('Location: ', s3_url)
 
-await update(airtable_record_id)({ Status: 'complete', Notes: s3_url })
+await update(airtable_record_id)({ Status: 'Done', Notes: s3_url })
 console.log(`Completed in ${Date.now() - start}ms ✨`)

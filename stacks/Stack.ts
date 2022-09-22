@@ -16,7 +16,12 @@ export function Stack({ stack }: StackContext) {
   // BATCH
   const batch = new BatchConstruct(stack, 'batch', {
     dockerDir: './../',
-    environment: { BUCKET_NAME: bucket.bucketName },
+    environment: {
+      BUCKET_NAME: bucket.bucketName,
+      AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY || '',
+      AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID || '',
+      AIRTABLE_TABLE_NAME: process.env.AIRTABLE_TABLE_NAME || '',
+    },
   })
 
   const role = new cdk.aws_iam.Role(stack, 'lambda-function-role', {
@@ -44,7 +49,7 @@ export function Stack({ stack }: StackContext) {
             BATCH_JOB_DEFINITION: batch.jobDefinitionName,
             AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY || '',
             AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID || '',
-            AIRTABLE_BASE_NAME: process.env.AIRTABLE_BASE_NAME || '',
+            AIRTABLE_TABLE_NAME: process.env.AIRTABLE_TABLE_NAME || '',
           },
           timeout: '15 minutes',
           permissions: [bucket],

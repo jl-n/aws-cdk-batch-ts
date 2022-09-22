@@ -17,19 +17,23 @@ Sometimes all you need is some simple UI and the ability to run scripts that tak
 
 Make sure you have [installed and configured the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). You might find [this guide](https://sst.dev/guide.html) helpful if you're new to serverless development. You may also want to [install Docker](https://docs.docker.com/engine/install/).
 
+Name your stack in the `sst.json` file. If you are using the Airtable utility, rename `.example.env` file in the root to `.local.env` and populate it it with your Airtable credentials.
+
 Install the dependencies with yarn:
 
 ```
 > yarn
 ```
 
-Develop locally with the [debug stack](https://docs.sst.dev/live-lambda-development):
+Develop locally with the [debug stack](https://docs.sst.dev/live-lambda-development) by running the client and services processes separately:
 
 ```
-> yarn start
+> yarn start:services
+
+> yarn start:client
 ```
 
-Project wide watch and build Typescript:
+Watch and build shared types package:
 
 ```
 > yarn tsc --watch
@@ -53,7 +57,7 @@ If you have Docker installed, you can build and run the docker container locally
 
 ## Airtable
 
-If you intend to use the Airtable utility, make sure you fill in the placeholder values in `services/lib/airtable.ts`. You may also want to uncomment the iframe code in `client/index.html` and update the `src` property with your own details. Note that Airtable doesn't automatically update when loaded inside an iframe so a refresh button is provided. The iframe is also programatically refreshed when data is submitted.
+You may also want to uncomment the iframe code in `client/index.html` and update the `src` property with a share url for your base. Note that Airtable doesn't automatically update when loaded inside an iframe so a refresh button is provided. The iframe is also programatically refreshed when data is submitted.
 
 ## References
 

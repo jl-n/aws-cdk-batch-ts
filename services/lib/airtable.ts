@@ -11,7 +11,7 @@ type Entry = {
 const env = {
   AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY || '',
   AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID || '',
-  AIRTABLE_BASE_NAME: process.env.AIRTABLE_BASE_NAME || '',
+  AIRTABLE_TABLE_NAME: process.env.AIRTABLE_TABLE_NAME || '',
 }
 
 const missing = Object.entries(env)
@@ -31,7 +31,7 @@ if (missing.length > 0) {
     endpointUrl: 'https://api.airtable.com',
     apiKey: env.AIRTABLE_API_KEY,
   })
-  table = Airtable.base(env.AIRTABLE_BASE_ID)(env.AIRTABLE_BASE_NAME)
+  table = Airtable.base(env.AIRTABLE_BASE_ID)(env.AIRTABLE_TABLE_NAME)
 }
 
 export const update = (id: string) => (entry: Partial<Entry>) =>
