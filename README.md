@@ -1,4 +1,4 @@
-# aws-cdk-batch-typescript
+# aws-cdk-batch-ts
 
 Quickly deploy a barebones Typescript client app with a Lambda backend and S3 Bucket that can run jobs in a Docker container on [AWS Batch](https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html) with Fargate.
 
