@@ -26,8 +26,8 @@ export const setup = (elems: ReturnType<typeof elements>) => {
     }
 
     post(parsed.data).then((x) => {
-      alert(x)
-      console.log(x)
+      alert(x.message)
+      console.log(x.message)
       setTimeout(refreshIframe, 1000)
     })
   }
