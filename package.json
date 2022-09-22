@@ -12,7 +12,7 @@
     "shared"
   ],
   "scripts": {
-    "tsc": "tsc",
+    "tsc": "tsc --build --verbose",
     "start": "sst start --outputs-file outputs.json",
     "prepare": "yarn workspace shared run tsc",
     "build": "yarn prepare && sst build",
