@@ -1,15 +1,4 @@
-import Airtable, { FieldSet, Record, Collaborator } from 'airtable'
-
-/**
- * You might find it more pragmatic to hardcode the values here
- * so you can use this utility inside the Lambda handler and Docker
- * container without managing environment variables.
- */
-
-// Populate with your own paramters:
-const AIRTABLE_API_KEY = 'XXXXXXXX'
-const AIRTABLE_BASE_ID = 'XXXXXXXX'
-const AIRTABLE_BASE_NAME = 'XXXXXXXX'
+import Airtable, { FieldSet, Record, Collaborator, Table } from 'airtable'
 
 // Update to match the fields of your base:
 type Entry = {
@@ -19,16 +8,35 @@ type Entry = {
   Status: string
 }
 
-Airtable.configure({
-  endpointUrl: 'https://api.airtable.com',
-  apiKey: AIRTABLE_API_KEY,
-})
+const env = {
+  AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY || '',
+  AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID || '',
+  AIRTABLE_BASE_NAME: process.env.AIRTABLE_BASE_NAME || '',
+}
 
-const datasets = Airtable.base(AIRTABLE_BASE_ID)(AIRTABLE_BASE_NAME)
+const missing = Object.entries(env)
+  .filter(([, v]) => v === '')
+  .map(([k]) => k)
+  .join(', ')
+console.log(env)
+let table = new Proxy(() => {}, {
+  get: () => table,
+  apply: () => table,
+}) as unknown as Table<FieldSet>
+
+if (missing.length > 0) {
+  console.error('Airtable not initialised, missing: ', missing)
+} else {
+  Airtable.configure({
+    endpointUrl: 'https://api.airtable.com',
+    apiKey: env.AIRTABLE_API_KEY,
+  })
+  table = Airtable.base(env.AIRTABLE_BASE_ID)(env.AIRTABLE_BASE_NAME)
+}
 
 export const update = (id: string) => (entry: Partial<Entry>) =>
   new Promise<Record<FieldSet> | undefined>((resolve, reject) =>
-    datasets.update(id, entry, (err, res) => {
+    table.update(id, entry, (err, res) => {
       if (err) reject(err)
       resolve(res)
     })
@@ -39,7 +47,7 @@ export const log = (entry: Partial<Entry>) => {
     update: (entry: Partial<Entry>) => Promise<Record<FieldSet> | undefined>
     airtable_record_id: string
   }>((resolve, reject) => {
-    datasets.create(entry, (err, record) => {
+    table.create(entry, (err, record) => {
       if (err || !record) {
         reject(err)
         return
