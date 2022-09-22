@@ -54,10 +54,20 @@ export class BatchConstruct extends Construct {
       ],
     })
 
+    const jobRole = new cdk.aws_iam.Role(scope, 'job-role', {
+      assumedBy: new cdk.aws_iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
+      managedPolicies: [
+        cdk.aws_iam.ManagedPolicy.fromAwsManagedPolicyName(
+          'AmazonS3FullAccess'
+        ),
+      ],
+    })
+
     const jobDefinition = new batch.JobDefinition(scope, 'job-definition', {
       parameters: { params: 'default-params-from-job-definition' },
       platformCapabilities: [batch.PlatformCapabilities.FARGATE],
       container: {
+        jobRole,
         secrets: {},
         executionRole,
         environment: params.environment,
@@ -66,6 +76,7 @@ export class BatchConstruct extends Construct {
         vcpus: 2,
         memoryLimitMiB: 4096,
         // -----------------------------
+        assignPublicIp: true,
         command: ['yarn', 'start', '--params', 'Ref::params'],
         image: docker_container_image,
       },
