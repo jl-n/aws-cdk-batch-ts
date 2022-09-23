@@ -50,6 +50,7 @@ export function Stack({ stack }: StackContext) {
             AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY || '',
             AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID || '',
             AIRTABLE_TABLE_NAME: process.env.AIRTABLE_TABLE_NAME || '',
+            CLIENT_TOKEN: process.env.CLIENT_TOKEN || '',
           },
           timeout: '15 minutes',
           permissions: [bucket],
@@ -57,7 +58,6 @@ export function Stack({ stack }: StackContext) {
       },
     },
   })
-
   api.attachPermissions([bucket])
 
   // STATIC SITE

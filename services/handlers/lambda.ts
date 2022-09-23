@@ -4,17 +4,14 @@ import { BatchClient, SubmitJobCommand } from '@aws-sdk/client-batch'
 import { BatchParameters, LambdaPayload } from '../../shared/types'
 import { log } from '../lib/airtable'
 
-const response = (statusCode: number, body: object) => ({
-  statusCode,
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(body),
-})
-
 const batch = new BatchClient({})
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const parsed = LambdaPayload.safeParse(JSON.parse(event.body || ''))
   if (!parsed.success) return response(400, { message: 'There was an error.' })
+  if (parsed.data.token !== process.env.CLIENT_TOKEN || '') {
+    return response(403, { message: 'Incorrect token supplied.' })
+  }
 
   const airtable_record_id = await log({
     Name: parsed.data.name,
@@ -24,11 +21,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
   const params: BatchParameters = {
     airtable_record_id,
-    name: `job-${parsed.data.name}-${new Date().toISOString()}`
-      .trim()
-      .replaceAll(':', '_')
-      .replaceAll('.', '-')
-      .replaceAll(' ', '-'),
+    name: `job-${format(parsed.data.name)}-${format(new Date().toISOString())}`,
     sample_content: parsed.data.sample_content,
   }
 
@@ -39,9 +32,18 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     parameters: { params: JSON.stringify(params) },
   })
 
-  const res = await batch.send(command)
+  await batch.send(command)
 
   return response(200, {
     message: `The job "${parsed.data.name}" has been submitted!`,
   })
 }
+
+const response = (statusCode: number, body: object) => ({
+  statusCode,
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(body),
+})
+
+const format = (x: string) =>
+  x.trim().replaceAll(':', '_').replaceAll('.', '-').replaceAll(' ', '-')
