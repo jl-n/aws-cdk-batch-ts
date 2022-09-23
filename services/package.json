@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node --loader @esbuild-kit/esm-loader ./run.ts"
+    "start": "node --loader @esbuild-kit/esm-loader ./run.ts",
+    "start:local": "node --loader @esbuild-kit/esm-loader ./run-local.ts"
   },
   "dependencies": {
     "@aws-cdk/aws-batch-alpha": "^2.41.0-alpha.0",
@@ -11,10 +12,8 @@
     "@aws-sdk/client-s3": "^3.170.0",
     "airtable": "^0.11.4",
     "aws-sdk": "^2.1215.0",
-    "esbuild-runner": "^2.2.1",
     "minimist": "^1.2.6",
-    "phin": "^3.6.1",
-    "zod": "^3.18.0"
+    "shared": "workspace:^"
   },
   "devDependencies": {
     "@esbuild-kit/esm-loader": "^2.4.2",

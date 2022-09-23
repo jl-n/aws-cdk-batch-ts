@@ -14,6 +14,7 @@
   "scripts": {
     "tsc": "tsc --build --verbose",
     "start:services": "sst start",
+    "start:script": "yarn workspace services run start:local",
     "start:client": "yarn workspace client run dev",
     "prepare": "yarn workspace shared run tsc",
     "build": "yarn prepare && sst build",
@@ -22,14 +23,12 @@
     "console": "sst console",
     "test": "sst load-config -- vitest run",
     "docker:build": "docker build --tag aws-cdk-batch-typescript .",
-    "docker:run": "docker run aws-cdk-batch-typescript",
-    "script": "node --loader @esbuild-kit/esm-loader ./services/run.ts"
+    "docker:run": "docker run aws-cdk-batch-typescript"
   },
   "devDependencies": {
     "@esbuild-kit/esm-loader": "^2.4.2",
     "@serverless-stack/cli": "^1.10.6",
     "@serverless-stack/resources": "^1.10.6",
-    "@tsconfig/node16": "^1.0.3",
     "@types/aws-lambda": "^8.10.102",
     "aws-cdk-lib": "2.32.0",
     "esbuild": "^0.15.7",

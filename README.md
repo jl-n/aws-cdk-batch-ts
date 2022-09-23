@@ -36,7 +36,7 @@ Develop locally with the [debug stack](https://docs.sst.dev/live-lambda-developm
 > yarn start:client
 ```
 
-You can also run your processing script locally by running `yarn start` in `/services`.
+You can also run you `services/process.ts` locally by running `yarn start:script`.
 
 Watch and build shared types package:
 

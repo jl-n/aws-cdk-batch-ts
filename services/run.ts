@@ -1,21 +1,20 @@
 import minimist from 'minimist'
 
-import { BatchParameters } from '../shared/types'
+import { BatchParameters } from 'shared/types'
 import { update } from './lib/airtable'
 import { upload } from './lib/s3'
 import { processData } from './process'
 
 let argv = minimist(process.argv)
-// console.log('argv.parameters', argv.parameters)
 let parsed = BatchParameters.safeParse(JSON.parse(argv.params))
 if (!parsed.success) {
-  throw `Unable to parse --params: ${parsed.error.toString()}`
+  throw `Unable to parse --params: ${parsed.error}`
 }
 
 const start = Date.now()
 const { name, sample_content, airtable_record_id } = parsed.data
 
-// Process the data
+console.log('Processing data: ', name)
 const result = await processData({
   log: update(airtable_record_id),
   data: sample_content,
