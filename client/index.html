@@ -16,35 +16,37 @@
         class="p-4 shrink-0 w-96 flex-col space-y-4 flex"
         action=""
       >
-        <div>
-          <p>Name</p>
+        <label>
+          Name
           <input
+            autofocus
             name="name"
             class="border p-2 w-full"
             placeholder="Type a name to identify this job..."
             type="text"
           />
-        </div>
+        </label>
 
-        <div>
-          <p>Sample Content</p>
+        <label>
+          Sample Content
           <input
             name="sample_content"
             class="border p-2 w-full"
             placeholder="Type a string..."
             type="text"
           />
-        </div>
+        </label>
 
-        <div>
-          <p>Token</p>
+        <label>
+          Token
           <input
             name="token"
             class="border p-2 w-full"
             placeholder="Type in your token..."
             type="password"
           />
-        </div>
+        </label>
+
         <button type="submit" class="bg-gray-300 hover:bg-gray-200 p-2">
           Submit
         </button>

@@ -7,7 +7,7 @@ export const upload = async (filename: string, contents: string) => {
   const BUCKET_NAME = process.env.BUCKET_NAME
 
   if (!BUCKET_NAME) {
-    console.log('No process.env.BUCKET_NAME found, returning...')
+    console.error('No process.env.BUCKET_NAME found, returning...')
     return
   }
 

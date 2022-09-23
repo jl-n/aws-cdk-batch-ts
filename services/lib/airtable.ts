@@ -5,7 +5,7 @@ type Entry = {
   Name: string
   Notes: string
   Assignee: Collaborator
-  Status: string
+  Status: 'Todo' | 'In progress' | 'Done'
 }
 
 const env = {
@@ -18,7 +18,7 @@ const missing = Object.entries(env)
   .filter(([, v]) => v === '')
   .map(([k]) => k)
   .join(', ')
-console.log(env)
+
 let table = new Proxy(() => {}, {
   get: () => table,
   apply: () => table,
@@ -36,10 +36,7 @@ if (missing.length > 0) {
 
 export const update = (id: string) => (entry: Partial<Entry>) =>
   new Promise<Record<FieldSet> | undefined>((resolve, reject) =>
-    table.update(id, entry, (err, res) => {
-      if (err) reject(err)
-      resolve(res)
-    })
+    table.update(id, entry, (err, res) => (err ? reject(err) : resolve(res)))
   )
 
 export const log = (entry: Partial<Entry>) => {
