@@ -1,4 +1,4 @@
-import { LambdaPayload } from '../../shared/types'
+import { LambdaPayload } from 'shared/types'
 
 export const post = (data: LambdaPayload) =>
   fetch(import.meta.env.VITE_API_URL, {

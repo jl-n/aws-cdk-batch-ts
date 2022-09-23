@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda'
 import { BatchClient, SubmitJobCommand } from '@aws-sdk/client-batch'
 
-import { BatchParameters, LambdaPayload } from '../../shared/types'
+import { BatchParameters, LambdaPayload } from 'shared/types'
 import { log } from '../lib/airtable'
 
 const batch = new BatchClient({})

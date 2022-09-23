@@ -1,4 +1,4 @@
-import { LambdaPayload } from '../../shared/types'
+import { LambdaPayload } from 'shared/types'
 import { post } from './api'
 
 export const elements = () => ({
