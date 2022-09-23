@@ -1,4 +1,8 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import {
+  S3Client,
+  PutObjectCommand,
+  PutObjectCommandInput,
+} from '@aws-sdk/client-s3'
 
 let s3 = null as S3Client | null
 
@@ -11,7 +15,7 @@ export const upload = async (filename: string, contents: string) => {
     return
   }
 
-  const params = {
+  const params: PutObjectCommandInput = {
     Bucket: BUCKET_NAME,
     Key: filename,
     Body: contents,

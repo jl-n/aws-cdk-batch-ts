@@ -13,11 +13,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     return response(403, { message: 'Incorrect token supplied.' })
   }
 
-  const airtable_record_id = await log({
+  const { airtable_record_id } = await log({
     Name: parsed.data.name,
     Notes: '',
     Status: 'Todo',
-  }).then((x) => x.airtable_record_id)
+  })
 
   const params: BatchParameters = {
     airtable_record_id,
