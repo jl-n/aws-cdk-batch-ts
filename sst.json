@@ -1,5 +1,5 @@
 {
-  "name": "mcde",
+  "name": "aws-cdk-batch-ts",
   "region": "us-east-1",
   "main": "stacks/index.ts"
 }
